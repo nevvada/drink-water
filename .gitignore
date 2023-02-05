@@ -1,2 +1,4 @@
 # local settings
 .env
+config.py
+venv/
