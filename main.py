@@ -9,12 +9,13 @@ def send_sms():
 
   client = Client(account_sid, auth_token)
 
-  message = client.messages.create(
-    from_=twilio_phone_number,
-    to=recipient_phone_number,
-    body="""
+  try:
+    message = client.messages.create(
+      from_=twilio_phone_number,
+      to=recipient_phone_number,
+      body="""\
 
-      _______________
+    _________________
   /   こんにちは、      \\
   \   drink water! 🚰 /
     -----------------
@@ -25,9 +26,13 @@ def send_sms():
 =(___)=
     U U
 
-    """
-  )
+        """
+      )
 
-  print("Message has been sent. Message SID: {}".format(message.sid))
+    print("Message has been sent. Message SID: {}".format(message.sid))
 
-send_sms()
+  except Exception as error:
+    print("Error sending message: {}".format(str(error)))
+
+def lambda_handler(event, context):
+  send_sms()

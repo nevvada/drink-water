@@ -1,8 +1,7 @@
-FROM python:3.9
+FROM public.ecr.aws/lambda/python:3.9-arm64
 
-ADD main.py .
-ADD .env .
+COPY main.py ${LAMBDA_TASK_ROOT}
 
 RUN pip install twilio
 
-CMD ["python", "main.py"]
+CMD ["main.lambda_handler"]
